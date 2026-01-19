@@ -3,12 +3,14 @@ import Typography from "@mui/material/Typography"
 const home = () => {
     return (
         <div>
-            <Typography variant="h1" align="left" fontFamily={'Note Serif JP'} sx={{letterSpacing: '0.05em'}}>
+            <Typography variant="h1" align="left" fontFamily={'Note Serif JP'} gutterBottom >
                 Home
             </Typography>
 
-            <Typography variant="body1" align="left" fontSize={30} fontFamily={'Note Serif JP'}>
-                This is Home!!
+            <h1>使用方法</h1>
+            <Typography variant="body1" align="left" fontFamily={'Note Serif JP'} gutterBottom>
+                このWebアプリはreact+ViteとRustで構成されています.<br/>
+                基本的な動きとしては,Room Makeのページに移動してRoomを作成し,Roomに入り戦うという予定です.
             </Typography>
         </div>
     );
