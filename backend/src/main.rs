@@ -57,6 +57,7 @@ async fn get_room() -> Json<Vec<Room>> {
 }
 
 #[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct CreateRoomInput {
     name:       String,
     owner:      String,
@@ -65,6 +66,6 @@ struct CreateRoomInput {
 
 async fn create_room(Json(payload): Json<CreateRoomInput>) -> Json<String> {
     println!("新しいルームの情報: {} max player: {} by {}", payload.name, payload.max_player, payload.owner);
-
-    return Json("Room created successfully!!".to_string())
+    // DB
+    return Json("id: 1, name: 'Test room', owner: 'nekomanma634', nowPlayer: 0, maxPlayer: 10".to_string())
 }

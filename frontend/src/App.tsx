@@ -3,12 +3,14 @@ import { Stack }  from '@mui/material';
 import AppBar     from '@mui/material/AppBar';
 import Toolbar    from '@mui/material/Toolbar';
 import Button     from '@mui/material/Button';
-import Home       from './routes/home';
-import RoomList   from './routes/roomlist';
+import Home       from './routes/Home';
+import RoomList   from './routes/RoomList';
 import RoomMake   from './routes/RoomMake';
 import './css/App.css'
 
 function App() {
+  const serverAddr = 'http://localhost:3000';
+
   return (
     <div>
       <BrowserRouter>
@@ -25,8 +27,8 @@ function App() {
 
         <Routes>
           <Route path="/"          element={<Home     />} />
-          <Route path="/room/list" element={<RoomList />} />
-          <Route path="/room/make" element={<RoomMake />} />
+          <Route path="/room/list" element={<RoomList backendAddr={ serverAddr } />} />
+          <Route path="/room/make" element={<RoomMake backendAddr={ serverAddr } />} />
         </Routes>
         
       </BrowserRouter>

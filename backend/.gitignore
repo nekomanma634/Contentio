@@ -1,0 +1,18 @@
+
+/target/
+
+**/*.rs.bk
+debug/
+
+# --- OS / Editor System Files ---
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Editors (VS Code, IntelliJ Rust, Vim etc.)
+.vscode/
+.idea/
+*.swp
+*.iml

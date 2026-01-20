@@ -1,8 +1,9 @@
 import { Alert, Box, Button, Snackbar, Stack, TextField, Typography } from "@mui/material";
 import type { InputRoomFrom } from "../types/room";
 import { useState } from "react";
+import type { BackendAddr } from "../types/addr";
 
-const MakeRoom = () => {
+const MakeRoom = ({backendAddr}: BackendAddr) => {
     const [inputData, setInputData] = useState<InputRoomFrom>({
         maxPlayer: 2,
         name:      '',
@@ -14,17 +15,36 @@ const MakeRoom = () => {
 
         setInputData((prev) => ({
             ...prev,
-            [name]: name === 'MaxPlayer' ? Number(value) : value,
+            [name]: name === 'maxPlayer' ? Number(value) : value,
         }))
     }
 
     const [open, setOpen] = useState(false);
     
+    // 送信ボタンを押したときの処理
     const handleSubmit = async () => {
-        // try {
-        //     const response = await fetch('')
-        // }
-        setOpen(true);
+        try {
+            const response = await fetch(backendAddr+'/rooms',{
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(inputData),
+            });
+
+            if(response.ok){
+                const result = await response.json();
+                console.log('Server response:', result);
+
+                setOpen(true);
+                setInputData({ name: '', maxPlayer: 2, owner: '' }); // 初期化
+            }else{
+                alert('通信に失敗しました');
+            }
+        }catch(error){
+            console.error('通信エラー:', error);
+            alert('通信エラー');
+        }
     }
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
@@ -107,9 +127,11 @@ const MakeRoom = () => {
                     autoHideDuration={3000}
                     onClose={handleClose}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'center'}}>
-                        <Alert onClick={handleClose} severity="success" sx={{width: '100%'}}>
-                            ルーム{inputData.name}を作成します
-                        </Alert>
+
+                    <Alert onClick={handleClose} severity="success" sx={{width: '100%'}}>
+                        ルーム{inputData.name}を作成します
+                    </Alert>
+
                 </Snackbar>
 
             </Box>

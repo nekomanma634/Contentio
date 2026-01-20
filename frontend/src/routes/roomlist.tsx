@@ -1,12 +1,24 @@
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import Typography    from '@mui/material/Typography'
 import type { Room } from '../types/room';
+import { useEffect, useState } from "react";
+import type { BackendAddr } from "../types/addr";
 
-const RoomList = () => {
-    // テストデータ
-    const rooms: Room[] = [
-        { id: 1, name: 'Test room', owner: 'nekomanma634', nowPlayer: 0, maxPlayer: 10 }
-    ]
+const RoomList = ({backendAddr}: BackendAddr) => {
+    const [rooms, setRooms] = useState<Room[]>([])
+
+    useEffect(() => {
+        // rust鯖のURL
+        fetch(backendAddr+'/rooms')
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("取得したデータ:", data)
+                setRooms(data);
+            })
+            .catch((error) => {
+                console.error("エラーが発生しました:", error);
+            });
+    }, [])
 
     return (
         <div>
