@@ -3,8 +3,8 @@ import { Stack }  from '@mui/material';
 import AppBar     from '@mui/material/AppBar';
 import Toolbar    from '@mui/material/Toolbar';
 import Button     from '@mui/material/Button';
-import Home       from './routes/Home';
-import RoomList   from './routes/RoomList';
+import Home       from './routes/home';
+import RoomList   from './routes/roomlist';
 import RoomMake   from './routes/RoomMake';
 import './css/App.css'
 

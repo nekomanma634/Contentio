@@ -1,4 +1,4 @@
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Snackbar, Stack, TextField, Typography } from "@mui/material";
 import type { InputRoomFrom } from "../types/room";
 import { useState } from "react";
 
@@ -16,6 +16,21 @@ const MakeRoom = () => {
             ...prev,
             [name]: name === 'MaxPlayer' ? Number(value) : value,
         }))
+    }
+
+    const [open, setOpen] = useState(false);
+    
+    const handleSubmit = async () => {
+        // API通信
+        setOpen(true);
+    }
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway'){
+            return;
+        }
+
+        setOpen(false);
     }
 
     return(
@@ -80,8 +95,20 @@ const MakeRoom = () => {
                                 '&:hover fieldset'      : { borderColor: 'white' },
                                 '&.Mui-focused fieldset': { borderColor: 'white' }}}}/>
 
-                    <Button variant="contained">送信</Button>
+                    <Button variant="contained" onClick={handleSubmit}>
+                        送信
+                    </Button>
                 </Stack>
+
+                <Snackbar
+                    open={open}
+                    autoHideDuration={3000}
+                    onClose={handleClose}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center'}}>
+                        <Alert onClick={handleClose} severity="success" sx={{width: '100%'}}>
+                            ルーム{inputData.name}を作成します
+                        </Alert>
+                </Snackbar>
 
             </Box>
         </div>
