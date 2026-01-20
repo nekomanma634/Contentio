@@ -21,7 +21,9 @@ const MakeRoom = () => {
     const [open, setOpen] = useState(false);
     
     const handleSubmit = async () => {
-        // API通信
+        // try {
+        //     const response = await fetch('')
+        // }
         setOpen(true);
     }
 
