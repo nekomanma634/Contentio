@@ -4,6 +4,11 @@ target/
 **/*.rs.bk
 debug/
 
+# SQLite database files
+*.db
+*.db-shm
+*.db-wal
+
 # --- OS / Editor System Files ---
 # Mac
 .DS_Store
