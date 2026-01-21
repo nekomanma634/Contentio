@@ -1,12 +1,10 @@
 use axum::{
-    Router,
-    extract::{Json, State},
-    routing::{get, post},
+    Router, extract::{Json, Path, State}, http::StatusCode, response::IntoResponse, routing::{delete, get, post}
 };
 use std::net::SocketAddr;
 use serde::{Deserialize, Serialize};
 use tower_http::cors::{Any, CorsLayer};
-use sqlx::{FromRow, SqlitePool};
+use sqlx::{SqlitePool};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -45,6 +43,7 @@ async fn main() {
         .route("/", get(root))
         .route("/rooms", get(get_room))
         .route("/rooms", post(create_room))
+        .route("/rooms/{id}", delete(delete_room))
         .layer(cors)
         .with_state(pool);
     
@@ -102,4 +101,26 @@ async fn create_room(
     println!("新しいルームの情報: {} max player: {} by {}", name, payload.max_player, owner);
 
     return Json(new_room)
+}
+
+async fn delete_room(
+    axum::extract::Path(room_id): Path<i64>, // :idを受け取る
+    State(pool): State<SqlitePool>
+
+)-> impl IntoResponse {
+    let result = sqlx::query("DELETE FROM rooms WHERE id = ?")
+        .bind(room_id)
+        .execute(&pool)
+        .await;
+
+    match result {
+        Ok(_)  => {
+            println!("roomを削除します_id:{}",room_id);
+            StatusCode::NO_CONTENT
+        },
+        Err(e) => {
+            eprint!("削除エラー: {:?}", e);
+            StatusCode::INTERNAL_SERVER_ERROR
+        }
+    }
 }

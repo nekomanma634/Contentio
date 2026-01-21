@@ -1,8 +1,9 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import Typography    from '@mui/material/Typography'
-import type { Room } from '../types/room';
-import { useEffect, useState } from "react";
-import type { BackendAddr } from "../types/addr";
+import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { useEffect, useState }      from "react";
+import type { Room }                from '../types/room';
+import type { BackendAddr }         from "../types/addr";
+import Typography                   from '@mui/material/Typography';
+import DeleteIcon                   from '@mui/icons-material/Delete';
 
 const RoomList = ({backendAddr}: BackendAddr) => {
     const [rooms, setRooms] = useState<Room[]>([])
@@ -19,6 +20,20 @@ const RoomList = ({backendAddr}: BackendAddr) => {
                 console.error("エラーが発生しました:", error);
             });
     }, [])
+
+    const handleDelete = async (id: number) => {
+        try {
+            const response = await fetch(`http://localhost:3000/rooms/${id}`,{method: 'DELETE'});
+
+            if(response.ok){
+                setRooms(rooms.filter((room) => room.id !== id));
+            } else {
+                console.error("roomの削除に失敗しました.");
+            }
+        } catch(err) {
+            console.error("エラー:", err);
+        }
+    }
 
     return (
         <div>
@@ -39,6 +54,7 @@ const RoomList = ({backendAddr}: BackendAddr) => {
                             <TableCell align="right" >作成者</TableCell>
                             <TableCell align="right" >人数  </TableCell>
                             <TableCell align="center">番号  </TableCell>
+                            <TableCell />
                         </TableRow>
                     </TableHead>
 
@@ -49,6 +65,11 @@ const RoomList = ({backendAddr}: BackendAddr) => {
                                 <TableCell align="right">              {room.owner}                     </TableCell>
                                 <TableCell align="right">              {room.nowPlayer}/{room.maxPlayer}</TableCell>
                                 <TableCell align="center">             {room.id   }                     </TableCell>
+                                <TableCell>
+                                    <IconButton aria-label="delete" sx={{width: 32, height: 32}} onClick={()=>{handleDelete(room.id)}}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
