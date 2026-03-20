@@ -3,15 +3,12 @@ import { useParams, Link as RouterLink } from 'react-router-dom';
 import { Container, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, CircularProgress, Alert, Button, IconButton, Chip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import ScienceIcon from '@mui/icons-material/Science';
-import SaveIcon from '@mui/icons-material/Save'; // 👈 追加
-
-// 👇 Markdown表示用のライブラリ群を追加
+import SaveIcon from '@mui/icons-material/Save';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
-
 import { useAuth } from '../contexts/AuthContext';
 
 interface TaskSummary {
@@ -28,7 +25,7 @@ interface ContestInfo {
   start_time: string;
   duration_minutes: number;
   is_rated: boolean;
-  description: string; // 👈 追加
+  description: string;
 }
 
 const ContestDetails = () => {
@@ -38,8 +35,6 @@ const ContestDetails = () => {
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
   const [now, setNow] = useState(new Date());
-  
-  // 👇 編集モード用のステートを追加
   const [isEditingDesc, setIsEditingDesc] = useState(false);
   const [editDesc, setEditDesc] = useState('');
 
@@ -159,7 +154,7 @@ const ContestDetails = () => {
 
       {errorMsg && <Alert severity="error" sx={{ mb: 3 }}>{errorMsg}</Alert>}
 
-      {/* 👇 コンテスト説明文エリアを追加 */}
+      {/* コンテスト説明文エリアを追加 */}
       <Paper variant="outlined" sx={{ p: 4, mb: 4, bgcolor: '#1e1e1e', borderRadius: '8px' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
           <Typography variant="h5" sx={{ fontWeight: 'bold' }}>Description</Typography>

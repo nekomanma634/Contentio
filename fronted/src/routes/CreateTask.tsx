@@ -28,7 +28,7 @@ const CreateTask = () => {
   const [successMsg, setSuccessMsg] = useState('');
   const navigate = useNavigate();
 
-  // 🚀 編集モードの場合、初期表示時に既存のデータを取得してフォームにセットする
+  // 編集モードの場合、初期表示時に既存のデータを取得してフォームにセットする
   useEffect(() => {
     if (isEditMode && task_id) {
       const fetchExistingTask = async () => {
@@ -75,14 +75,14 @@ const CreateTask = () => {
     }
 
     try {
-      // 🚀 モードによって送信先APIとHTTPメソッド（POST or PUT）を切り替える
+      // モードによって送信先APIとHTTPメソッド（POST or PUT）を切り替える
       const apiUrl = isEditMode 
         ? `http://localhost:3000/api/admin/tasks/${task_id}` 
         : 'http://localhost:3000/api/admin/tasks';
         
       const apiMethod = isEditMode ? 'PUT' : 'POST';
 
-      // 🚀 編集時は contest_id と task_label は送らない（既存のものを保持するため）
+      // 編集時は contest_id と task_label は送らない（既存のものを保持するため）
       const requestBody = isEditMode 
         ? { title, time_limit: timeLimit, memory_limit: memoryLimit, markdown }
         : { contest_id, task_label: taskLabel, title, time_limit: timeLimit, memory_limit: memoryLimit, markdown };

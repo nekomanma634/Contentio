@@ -309,12 +309,12 @@ const TaskDetail = () => {
                 renderLineHighlight: 'all',
                 smoothScrolling: true,
                 cursorBlinking: 'smooth',
-                readOnly: isEnded || isBeforeStart, // 💡 終了時・開始前はエディタ自体も編集不可にする
+                readOnly: isEnded || isBeforeStart, // 終了時・開始前はエディタ自体も編集不可にする
               }}
             />
           </Box>
 
-          {/* 👇 ボタンの disabled 条件に isEnded と isBeforeStart を追加し、表示テキストも切り替える */}
+          {/* ボタンの disabled 条件に isEnded と isBeforeStart を追加し、表示テキストも切り替える */}
           <Button 
             variant="contained" 
             color={isEnded || isBeforeStart ? 'inherit' : 'primary'} 
