@@ -30,7 +30,7 @@ const Login = () => {
       <Card elevation={3}>
         <CardContent sx={{ p: 4 }}>
           <Typography variant="h5" component="h1" gutterBottom align="center" sx={{ fontWeight: 'bold', mb: 3 }}>
-            Sign in to LocalCoder
+            Sign in to Contentio
           </Typography>
 
           {errorMsg && (
