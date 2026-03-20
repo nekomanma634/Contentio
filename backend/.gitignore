@@ -1,0 +1,12 @@
+/target
+
+.env
+
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+.DS_Store
+Thumbs.db
