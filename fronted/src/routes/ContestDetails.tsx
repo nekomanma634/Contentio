@@ -57,7 +57,7 @@ const ContestDetails = () => {
         
         setContest(contestData);
         setTasks(tasksData);
-        setEditDesc(contestData.description || ''); // 👈 取得した説明文をセット
+        setEditDesc(contestData.description || ''); // 取得した説明文をセット
       } catch (err: any) {
         setErrorMsg(err.message);
       } finally {
@@ -82,7 +82,7 @@ const ContestDetails = () => {
     }
   };
 
-  // 👇 説明文の保存処理を追加
+  // 説明文の保存処理を追加
   const handleSaveDescription = async () => {
     try {
       const response = await fetch(`http://localhost:3000/api/admin/contests/${contest_id}/description`, {

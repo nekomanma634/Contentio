@@ -30,7 +30,7 @@ const Home = () => {
       try {
         const [contestsRes, rankingRes] = await Promise.all([
           fetch('http://localhost:3000/api/contests'),
-          fetch('http://localhost:3000/api/ranking') // 👈 実際のAPIから取得
+          fetch('http://localhost:3000/api/ranking') // 実際のAPIから取得
         ]);
 
         if (contestsRes.ok) {

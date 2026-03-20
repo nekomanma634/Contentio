@@ -24,7 +24,7 @@ interface TaskData {
   markdown_content: string;
 }
 
-// 👇 コンテスト情報を取得するための型を追加
+// コンテスト情報を取得するための型を追加
 interface ContestInfo {
   id: string;
   title: string;
@@ -40,7 +40,7 @@ const TaskDetail = () => {
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
   
-  // 👇 タイマー用のステートを追加
+  // タイマー用のステートを追加
   const [now, setNow] = useState(new Date());
 
   const { user } = useAuth();
@@ -55,7 +55,7 @@ const TaskDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 👇 問題データとコンテストデータを同時に取得する
+        // 問題データとコンテストデータを同時に取得する
         const [taskRes, contestRes] = await Promise.all([
           fetch(`http://localhost:3000/api/tasks/${task_id}`),
           fetch(`http://localhost:3000/api/contests/${contest_id}`)
@@ -204,7 +204,7 @@ const TaskDetail = () => {
   if (loading) return <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}><CircularProgress /></Box>;
   if (errorMsg || !task || !contest) return <Container maxWidth="lg" sx={{ mt: 4 }}><Alert severity="error">{errorMsg}</Alert></Container>;
 
-  // 👇 時間の計算ロジック
+  // 時間の計算ロジック
   const startTime = contest.start_time as unknown as Date;
   const endTime = new Date(startTime.getTime() + contest.duration_minutes * 60000);
   
@@ -222,7 +222,7 @@ const TaskDetail = () => {
         </Typography>
 
         <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center', gap: 3, color: 'text.secondary' }}>
-          {/* 👇 終了している場合は目立つようにバッジを表示 */}
+          {/* 終了している場合は目立つようにバッジを表示 */}
           {isEnded && <Chip label="Contest Ended" color="default" sx={{ fontWeight: 'bold' }} />}
           {isBeforeStart && <Chip label="Not Started" color="primary" sx={{ fontWeight: 'bold' }} />}
           
