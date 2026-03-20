@@ -418,7 +418,7 @@ pub async fn get_system_logs_handler(
     Ok(Json(logs))
 }
 
-// 🚀 新規追加: コンテスト説明文の更新 (Admin専用)
+// 新規追加: コンテスト説明文の更新 (Admin専用)
 pub async fn update_contest_description_handler(
     State(state): State<Arc<AppState>>,
     Path(contest_id): Path<String>,
